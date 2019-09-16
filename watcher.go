@@ -100,7 +100,7 @@ var ops = map[Op]string{
 
 var disableDirectoryEvents = false
 
-func DisableDirectoryEvents() {
+func (w *Watcher) DisableDirectoryEvents() {
 	disableDirectoryEvents = true
 }
 
