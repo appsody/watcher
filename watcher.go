@@ -125,6 +125,8 @@ func RegexFilterHook(r *regexp.Regexp, useFullPath bool) FilterFileHookFunc {
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//The following additions are  available under the same license as the rest of the code.
+
 // NoDirectoryFilterHook will return ErrSkip if this is a directory
 func NoDirectoryFilterHook() FilterFileHookFunc {
 	return func(info os.FileInfo, fullPath string) error {
