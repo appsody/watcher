@@ -14,7 +14,7 @@
 // limitations under the License.
 
 //The following additions are  available under the same license as the rest of the code.
-[![Build Status]https://travis-ci.com/appsody/watcher
+[![Build Status](https://travis-ci.com/appsody/watcher)](https://travis-ci.com/appsody/watcher)
 
 
 `watcher` is a Go package for watching for files or directory changes (recursively or non recursively) without using filesystem events, which allows it to work cross platform consistently.
