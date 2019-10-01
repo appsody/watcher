@@ -111,6 +111,57 @@ func RegexFilterHook(r *regexp.Regexp, useFullPath bool) FilterFileHookFunc {
 	}
 }
 
+// Copyright © 2019 IBM Corporation and others.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+//The following additions are  available under the same license as the rest of the code.
+
+// NoDirectoryFilterHook will return ErrSkip if this is a directory
+func NoDirectoryFilterHook() FilterFileHookFunc {
+	return func(info os.FileInfo, fullPath string) error {
+		if info.IsDir() {
+			return ErrSkip
+		}
+		return nil
+
+	}
+}
+
+// NegativeFilterHook will return ErrSkip if there is a match as these files/dirs should not cause events
+// bo be generated.  If there is no match, then nil is returned
+func NegativeFilterHook(r *regexp.Regexp, useFullPath bool) FilterFileHookFunc {
+	return func(info os.FileInfo, fullPath string) error {
+		str := info.Name()
+
+		if useFullPath {
+			str = fullPath
+		}
+
+		// Match negative
+
+		matched := r.MatchString(str)
+
+		if matched {
+			return ErrSkip
+		}
+
+		// No match.
+		return nil
+
+	}
+}
+
 // Watcher describes a process that watches files for changes.
 type Watcher struct {
 	Event  chan Event
